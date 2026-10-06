@@ -1,8 +1,9 @@
 import time
-import os
-try: import keyboard
+
+try: 
+	import keyboard
 except:
-	print("Please activate the virtual environment using 'env\\Scripts\\activate' and try again. That works I think.")
+	print("pip install keyboard?")
 	exit()
 import random
 
@@ -18,10 +19,9 @@ food = [8, 5]
 running = True
 
 def draw():
-	os.system('cls')
+	print("\x1B[H \x1B[?25l")
 
 	print((' ' * (side - 1)) + str(score))
-
 
 	for y in range(side):
 		for x in range(side):
@@ -30,9 +30,9 @@ def draw():
 			elif [x, y] in body:
 				print("■ ", end="")
 			elif [x, y] == food:
-				print("♥ ", end="")
+				print("\x1B[31m♥ \x1B[0m", end="")
 			else:
-				print("· ", end="")
+				print("\x1B[38;5;8m· \x1B[0m", end="")
 		print()
 
 def changeDirection(event):
@@ -83,6 +83,8 @@ def mainLoop():
 
 
 keyboard.on_press(changeDirection)
+
+print("\x1Bc", end="")
 
 while running:
 	draw()
